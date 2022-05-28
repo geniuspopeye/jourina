@@ -14,7 +14,7 @@ public class UserLoginDTO {
     private String login;
     private RoleDTO role;
     private DepartmentDTO department;
-    private List<String> journalName;
+    private List<JournalDTO> journals;
 
     @Transactional
     public UserLoginDTO getUserLoginDTO(User user){
@@ -29,11 +29,9 @@ public class UserLoginDTO {
         userLoginDTO.setRole(role);
         department.setName(user.getDepartment().getName());
         userLoginDTO.setDepartment(department);
-        journalName = new ArrayList<>();
-        for(Journal journal : user.getJournal()){
-            journalName.add(journal.getName());
-        }
-        userLoginDTO.setJournalName(journalName);
+        JournalDTO journalName = new JournalDTO();
+        journals = journalName.getJournalLoginDTOList(user.getJournal());
+        userLoginDTO.setJournals(journals);
         return userLoginDTO;
     }
 
@@ -77,12 +75,12 @@ public class UserLoginDTO {
         this.department = department;
     }
 
-    public List<String> getJournalName() {
-        return journalName;
+    public List<JournalDTO> getJournals() {
+        return journals;
     }
 
-    public void setJournalName(List<String> journalName) {
-        this.journalName = journalName;
+    public void setJournals(List<JournalDTO> journals) {
+        this.journals = journals;
     }
 }
 
