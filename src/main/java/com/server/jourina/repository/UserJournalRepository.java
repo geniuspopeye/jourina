@@ -13,4 +13,9 @@ public interface UserJournalRepository extends JpaRepository<UserJournal, UserJo
     @Query(value = "insert into user_journal values(:id_user, :id_journal)", nativeQuery = true)
     @Transactional
     void setUserJournal(@Param("id_user") Integer id_user, @Param("id_journal") Integer id_jrnl);
+
+    @Modifying
+    @Query(value = "delete from user_journal uj where uj.id_journal = :id_journal", nativeQuery = true)
+    @Transactional
+    void deleteJournal(@Param("id_journal") Integer id_jrnl);
 }
